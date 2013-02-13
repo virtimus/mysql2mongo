@@ -135,7 +135,16 @@ Now when we have some "r2n" mapping scrap - let's do some action:
 
 		php r2nconvert.php employees 100
 	
-(convert employees.sql to employees(n).json using mapping employees.r2n each 100k records creating new file)	
+(convert employees.sql to employees(n).json using mapping employees.r2n each 100k records creating new file)
+
+You should get a set of json files containing updates redy to run on MongoDB:
+
+	db.employees.update({_id : 10001},{ $set: {emp_no:10001,birth_date:'1953-09-02',first_name:'Georgi',last_name:'Facello',gender:'M',hire_date:'1986-06-26'} } ,{multi: true, upsert: true})
+	db.employees.update({_id : 10001},{ $set: {'salaries.1986-06-26' : {emp_no:10001,salary:60117,from_date:'1986-06-26',to_date:'1987-06-26'}} } ,{multi: true, upsert: true})
+	db.employees.update({_id : 10001},{ $set: {'salaries.1987-06-26' : {emp_no:10001,salary:62102,from_date:'1987-06-26',to_date:'1988-06-25'}} } ,{multi: true, upsert: true})
+	db.employees.update({_id : 10001},{ $set: {'salaries.1988-06-25' : {emp_no:10001,salary:66074,from_date:'1988-06-25',to_date:'1989-06-25'}} } ,{multi: true, upsert: true})
+	... etc
+ 	
 	
 **Notice:** You have to have enough RAM memory for parent collections cache (collections which have children) - about 100MB/300k records. 
 (currently implemented as in-memory PHPGENCreator.fieldDataCache)
