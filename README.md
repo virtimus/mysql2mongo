@@ -95,7 +95,7 @@ http://dev.mysql.com/doc/employee/en/employees-installation.html
 
 - run import through mysql commandline tool:
 
-	mysql -u[username] -p[password] -t < employees.sql
+		mysql -u[username] -p[password] -t < employees.sql
 	
 	
 Now it's time to take a look at the db schema: http://dev.mysql.com/doc/employee/en/sakila-structure.html
@@ -129,11 +129,11 @@ Now when we have some "r2n" mapping scrap - let's do some action:
 - put above mapping (without comments and empty lines) into file "example/employees.r2n"
 - cd example & export mysql data as full insert statements:
 
-	mysqldump -u[username] -p[password] --skip-extended-insert --complete-insert employees employees salaries titles > employees.sql
+		mysqldump -u[username] -p[password] --skip-extended-insert --complete-insert employees employees salaries titles > employees.sql
 	
 - now run the example converter:
 
-	php r2nconvert.php employees 100
+		php r2nconvert.php employees 100
 	
 (convert employees.sql to employees(n).json using mapping employees.r2n each 100k records creating new file)	
 	
