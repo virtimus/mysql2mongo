@@ -98,15 +98,13 @@ http://dev.mysql.com/doc/employee/en/employees-installation.html
 	mysql -u[username] -p[password] -t < employees.sql
 	
 	
-Now it's time to take a look at the db schema:
-	
-	http://dev.mysql.com/doc/employee/en/sakila-structure.html
+Now it's time to take a look at the db schema: http://dev.mysql.com/doc/employee/en/sakila-structure.html
 	
 	
 Moving from relational to non-relational in case of salaries/employees/titles seems to be simple and rather obvious:
 Let's get employees as main collection here and titles and salaries as nested documents:
 
-	{
+	[
 	{name:"employees", type: "t2coll", 			// mapping named "employees" type "t2coll" (table to collection)
 		table: "employees", 					// source table: "employees" 
 		collname:"employees",					// target collection name: "employees"
@@ -124,7 +122,7 @@ Let's get employees as main collection here and titles and salaries as nested do
 		parent: "employees",					// parent collection name: "employees" 
 		path:"[emp_no].titles.[from_date]",		//  "from_date" is ok - as above 
 		} 										// "value" omitted - the default is to place all record data as key:value pairs
-	}
+	]
 
 Now when we have some "r2n" mapping scrap - let's do some action:
 
