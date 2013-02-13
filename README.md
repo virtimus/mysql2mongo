@@ -35,20 +35,20 @@ The mapping(conversion definition):
 ---
 
 
-{[
-{name:"users", type: "t2coll", 			// mapping named "users" type "t2coll" (table as collection)
-	table: "wp_users", 					// source table: "wp_users" 
-	collname:"wp_users",				// target collection name: "wp_users"
-	path:"[ID]"							// target path (inside collection): mapped by [ID] field from wp_users table
-	},
-										
-{name:"users_meta", type: "t2docs", 	// mapping named "users_meta" type: "t2docs" (table as documents)	
-	table: "wp_usermeta",				// source table: "wp_usermeta" 
-	parent: "users",					// parent collection name: "users" (the mapping/set of data is nested)
-	path:"[user_id].meta.[meta_key]",	// target path: [user_id] - (parent connector), "meta" - parent collection elment, [meta_key] - key 
-	value:"[meta_value]"				// [meta_value] - value to be placed under the target path (currently only simply field value supported)
-	}
-]}
+	[
+	{name:"users", type: "t2coll", 			// mapping named "users" type "t2coll" (table as collection)
+		table: "wp_users", 					// source table: "wp_users" 
+		collname:"wp_users",				// target collection name: "wp_users"
+		path:"[ID]"							// target path (inside collection): mapped by [ID] field from wp_users table
+		},
+											
+	{name:"users_meta", type: "t2docs", 	// mapping named "users_meta" type: "t2docs" (table as documents)	
+		table: "wp_usermeta",				// source table: "wp_usermeta" 
+		parent: "users",					// parent collection name: "users" (the mapping/set of data is nested)
+		path:"[user_id].meta.[meta_key]",	// target path: [user_id] - (parent connector), "meta" - parent collection elment, [meta_key] - key 
+		value:"[meta_value]"				// [meta_value] - value to be placed under the target path (currently only simply field value supported)
+		}
+	]
  
  
 The collection(the effect):
