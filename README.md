@@ -35,7 +35,7 @@ The mapping(conversion definition):
 ---
 
 
-[
+{[
 {name:"users", type: "t2coll", 			// mapping named "users" type "t2coll" (table as collection)
 	table: "wp_users", 					// source table: "wp_users" 
 	collname:"wp_users",				// target collection name: "wp_users"
@@ -48,7 +48,7 @@ The mapping(conversion definition):
 	path:"[user_id].meta.[meta_key]",	// target path: [user_id] - (parent connector), "meta" - parent collection elment, [meta_key] - key 
 	value:"[meta_value]"				// [meta_value] - value to be placed under the target path (currently only simply field value supported)
 	}
-]
+]}
  
  
 The collection(the effect):
