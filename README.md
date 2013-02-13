@@ -137,7 +137,7 @@ Now when we have some "r2n" mapping scrap - let's do some action:
 	
 (convert employees.sql to employees(n).json using mapping employees.r2n each 100k records creating new file)	
 	
-Notice: You have to have enough RAM memory for parent collections cache (collections which have children) - about 100MB/300k records. 
+**Notice:** You have to have enough RAM memory for parent collections cache (collections which have children) - about 100MB/300k records. 
 (currently implemented as in-memory PHPGENCreator.fieldDataCache)
 Or You have to partition Your DDL input (in such a way that parent records are inside the same partition as children).
 	
