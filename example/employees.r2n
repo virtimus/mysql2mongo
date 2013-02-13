@@ -1,0 +1,19 @@
+[
+{name:"employees", type: "t2coll", 			
+	table: "employees", 					
+	collname:"employees",					
+	path:"[emp_no]"
+	},	
+{
+name:"employees_salaries", type: "t2docs", 
+	table: "salaries",						
+	parent: "employees",					
+	path:"[emp_no].salaries.[from_date]"
+	}, 										
+{
+name:"employees_titles", type: "t2docs", 	
+	table: "titles",						
+	parent: "employees",					
+	path:"[emp_no].titles.[from_date]"
+}
+]
