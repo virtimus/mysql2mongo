@@ -70,7 +70,7 @@ The collection(the effect):
 			"wp_user_level" : "10"
 			....
 			}
-		user_email:mbisz@wp.pl
+		user_email:virtimus@gmail.com
 		user_login:admin
 		user_nicename:admin
 		user_pass:$P$BtC.w7H6gOdMRhht5TkBMIWD/xIiAB.
