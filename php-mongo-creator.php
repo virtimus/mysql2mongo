@@ -31,9 +31,12 @@
 
 if (!defined('HAVE_PHP_MONGO_CREATOR')) {
 
+if (!class_exists('InvalidParameterException'))	{
     require_once(dirname(__FILE__) . '/classes/exceptions.php');
-	require_once(dirname(__FILE__) . '/php-gen-creator.php');
-
+}
+    
+    require_once(dirname(__FILE__) . '/php-gen-creator.php');
+    
     class PHPMONGOCreator extends PHPGENCreator {
 
 

@@ -101,6 +101,7 @@ $GLOBALS['pCache'] = array();
 $n = 0;
 $handle = fopen($fname.'.sql' , "r");
 $handle_o = fopen($fname.'('.$n.').json' , "w+");
+
 if ($handle) {
 	$c=0;
    //$GLOBALS['prof']->startTimer( "main_loop" );
@@ -114,6 +115,7 @@ if ($handle) {
 			//$GLOBALS['prof']->stopTimer( "main_parse" );
 			//$GLOBALS['prof']->startTimer( "main_create" );
 			$mongoStatement=$creator->create($parsed);
+			//$mongoStatement=$creator->create($parser->parsed);
 			//$GLOBALS['prof']->stopTimer( "main_create" );
 			echo $mongoStatement."\n";
 			fputs ($handle_o , $mongoStatement."\n");
@@ -128,9 +130,23 @@ if ($handle) {
 				
 	   }
    }
-   //$GLOBALS['prof']->stopTimer( "main_loop" );
    fclose($handle);
    fclose($handle_o);
+    
+   //$GLOBALS['prof']->stopTimer( "main_loop" );
+   $handle_b = fopen('mimport_'.$fname.'.bat' , "w+");
+   fputs ($handle_b ,'if "%1"=="" goto blank'."\n");
+  
+   for($i=0;$i<$n+1;$i++){
+   		fputs ($handle_b , "mongo %1 < ".dirname(__FILE__).'/'.$fname.'('.$i.').json'."\n");
+   		fputs ($handle_b , "echo \"".$fname.' - '.$i.'/'.($n)." ended ... \"\n");   	
+   }
+
+   fputs ($handle_b ,'goto done'."\n");
+   fputs ($handle_b ,':BLANK'."\n");
+   fputs ($handle_b ,'ECHO usage: mimport_'.$fname.' [dbname]'."\n");
+   fputs ($handle_b ,':DONE'."\n");   
+   fclose($handle_b);
 } 
 
 
