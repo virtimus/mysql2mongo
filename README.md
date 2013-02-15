@@ -8,8 +8,15 @@ Work based on http://code.google.com/p/php-sql-parser/
 
 The scripts are using simple relational to non-relational (r2n) mapping mechanism that should let You automagically convert Your MySQL database into MongoDB set of collections.
 
+The approach is: instead of direct convertion let's convert MySQL eksport (set of "INSERTS") to MongoDB import (set of "db.updates").
+
+It would also be interesting to go a little bit further - it should be possible to translate also SELECT'S,  UPDATE'S and DELETE'S (using same or similiar r2n mapings) which would make quite nice SQL to NoSQL translator ...
+And this means simplyfing r2n by using the translator on median migration stages... 
+IE: incremental changes could be routed to both MYSQL an MongDB ...
+
+
 Example (Wordpress users):
-===========
+==========
 
 The tables(source of data):
 ---
@@ -137,7 +144,12 @@ Now when we have some "r2n" mapping scrap - let's do some action:
 	
 (convert employees.sql to employees(n).json using mapping employees.r2n each 100k records creating new file)
 
-You should get a set of json files containing updates redy to run on MongoDB:
+**Notice:** You have to have enough RAM memory for parent collections cache (collections which have children) - about 100MB/300k records. 
+(currently implemented as in-memory PHPGENCreator.fieldDataCache)
+Or You have to partition Your DDL input (in such a way that parent records are inside the same partition as children).
+
+
+At the end - You should get a set of json files containing updates redy to run on MongoDB:
 
 	db.employees.update({_id : 10001},{ $set: {emp_no:10001,birth_date:'1953-09-02',first_name:'Georgi',last_name:'Facello',gender:'M',hire_date:'1986-06-26'} } ,{multi: true, upsert: true})
 	db.employees.update({_id : 10001},{ $set: {'salaries.1986-06-26' : {emp_no:10001,salary:60117,from_date:'1986-06-26',to_date:'1987-06-26'}} } ,{multi: true, upsert: true})
@@ -146,9 +158,10 @@ You should get a set of json files containing updates redy to run on MongoDB:
 	... etc
  	
 	
-**Notice:** You have to have enough RAM memory for parent collections cache (collections which have children) - about 100MB/300k records. 
-(currently implemented as in-memory PHPGENCreator.fieldDataCache)
-Or You have to partition Your DDL input (in such a way that parent records are inside the same partition as children).
+... and mimport_[name].bat script which gets mongo database name as arg and imports all the collection data to Mongo:
+
+	mimport_eployees.bat mymongodb 
+	
 	
 	
 
