@@ -165,7 +165,7 @@ protected abstract function processSelectStatement($parsed);
 			$rf = &$pres['rf'];
 			$tf = &$pres['tf'];
 			//TODO mode complex cases than just mapping by id
-			$updateCond = '_id : '.$ta[0]; 
+			$updateCond = '_id : '.$rf['value'];//$ta[0]; 
 			unset($ta[0]);
 			$updatePath = implode('.',$ta);
 			$pInfo = array('path'=>$collInfo['path'],
